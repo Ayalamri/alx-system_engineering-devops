@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
 # Iterate over the processes and filter by the word "bash"
-while read -r pid name; do
-    echo "$pid $name"
-done < <(pgrep -af bash | grep -v "pgrep -af bash")
+pgrep -l bash
