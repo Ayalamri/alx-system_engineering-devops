@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Run the 4-to_infinity_and_beyond script in the background
+./4-to_infinity_and_beyond &
+
+# Store the PID of the last background process
+bg_pid=$!
+
+# Wait for a key press to stop the process
+read -p "Press Enter to stop the process"
+
+# Use a signal to terminate the process
+trap "echo Terminated; exit" SIGTERM
+
+# Send the SIGTERM signal to the background process
+kill -s SIGTERM "$bg_pid"

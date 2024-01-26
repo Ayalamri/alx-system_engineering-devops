@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Run the 7-highlander script in the background
+./7-highlander &
+
+# Store the PID of the last background process
+bg_pid=$!
+
+# Function to handle SIGTERM signal
+sigterm_handler() {
+    echo "I am invincible!!!"
+    exit
+}
+
+# Set up the trap to handle SIGTERM
+trap sigterm_handler SIGTERM
+
+# Wait for a key press to stop the process
+read -p "Press Enter to stop the process"
+
+# Send the SIGTERM signal to the background process
+kill -s SIGTERM "$bg_pid"
