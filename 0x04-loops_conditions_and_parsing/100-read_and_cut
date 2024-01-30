@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 # Display content of /etc/passwd using while loop
-
 while IFS= read -r contents
 do
     echo "$contents" | cut -f 1,3,6 -d ':'
