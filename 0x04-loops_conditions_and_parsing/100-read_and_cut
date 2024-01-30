@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Display content of /etc/passwd using while loop
+
+while IFS=: read -r user x uid gid name home shell; do
+    echo "$user:$uid:$home"
+done < /etc/passwd
