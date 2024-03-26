@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This script starts a Docker container running Apache on port 8080, then fixes the issue preventing it from returning a page containing "Hello Holberton" when querying the root.
+
+# Start Docker container
+docker run -p 8080:80 -d -it holbertonschool/265-0
+
+# Check container ID
+container_id=$(docker ps | grep holbertonschool/265-0 | awk '{print $1}')
+
+# Execute commands inside the container to debug
+docker exec -it "$container_id" service apache2 restart
