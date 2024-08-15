@@ -1,19 +1,10 @@
-# Puppet manifest to fix Apache 500 error
-#
-# Attach strace to the Apache process
-# Run curl to trigger the error
-# Analyze strace output to identify the cause
-# Implement the fix manually
-# Automate the fix with Puppet
+# This Puppet manifest fixes the Apache 500 error by ensuring correct permissions and restoring a missing configuration file
 
-# Define Puppet resources to fix the issue
-exec { 'fix-wordpress':
-  command     => '/bin/bash -c "chmod 755 /var/www/html/wp-content"',
-  refreshonly => true,
-}
-
-# Notify Apache service restart after fixing permissions
-service { 'apache2':
-  ensure    => running,
-  subscribe => Exec['fix-wordpress'],
+# Ensure the WordPress configuration file exists
+file { '/var/www/html/wp-config.php':
+  ensure  => file,
+  source  => 'puppet:///modules/wordpress/wp-config.php',
+  owner   => 'www-data',
+  group   => 'www-data',
+  mode    => '0644',
 }
